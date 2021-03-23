@@ -70,3 +70,23 @@ main {
   .thumbnails img {
     width: 56px;
   }
+
+  /* body {
+    margin: 40px;
+     padding: 180px;
+
+  } */
+
+  /* .home {
+  font-size: 40px;
+  color: rgb(179, 43, 111);
+  } */
+
+
+  footer p {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 30px;
+    margin-bottom: 60px;
+    color: gray;
+  }
