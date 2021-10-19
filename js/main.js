@@ -1,79 +1,71 @@
 'use strict';
 
 {
-  const images = [
-    'img/pic00.png',
-    'img/pic01.png',
-    'img/pic02.png',
-    'img/pic03.png',
-    'img/pic04.png',
-    'img/pic05.png',
-    'img/pic06.png',
-    'img/pic07.png',
-  ];
+  const next = document.getElementById('next');
+  const prev = document.getElementById('prev');
+  const ul = document.querySelector('ul');
+  const slides = ul.children;
+  const dots = [];
   let currentIndex = 0;
 
-  const mainImage = document.getElementById('main');
-  mainImage.src = images[currentIndex];
+  function updateButtons() {
+    prev.classList.remove('hidden');
+    next.classList.remove('hidden');
 
-  images.forEach((image, index) => {
-    const img = document.createElement('img');
-    img.src = image;
-
-    const li = document.createElement('li');
-    if (index === currentIndex) {
-      li.classList.add('current');
+    if (currentIndex === 0) {
+      prev.classList.add('hidden');
     }
-    li.addEventListener('click', () => {
-      mainImage.src = image;
-      const thumbnails = document.querySelectorAll('.thumbnails > li');
-      thumbnails[currentIndex].classList.remove('current');
-      currentIndex = index;
-      thumbnails[currentIndex].classList.add('current');
-    });
-
-    li.appendChild(img);
-    document.querySelector('.thumbnails').appendChild(li);
-  });
-
-  const next = document.getElementById('next');
-  next.addEventListener('click', () => {
-    let target = currentIndex + 1;
-    if (target === images.length) {
-      target = 0;
+    if (currentIndex === slides.length - 1) {
+      next.classList.add('hidden');
     }
-    document.querySelectorAll('.thumbnails > li')[target].click();
-  });
-
-  const prev = document.getElementById('prev');
-  prev.addEventListener('click', () => {
-    let target = currentIndex - 1;
-    if (target < 0) {
-      target = images.length - 1;
-    }
-    document.querySelectorAll('.thumbnails > li')[target].click();
-  });
-
-  let timeoutId;
-
-  function playSlideshow() {
-    timeoutId = setTimeout(() => {
-      next.click();
-      playSlideshow();
-    }, 1000);
   }
 
-  let isPlaying = false;
+  function moveSlides() {
+    const slideWidth = slides[0].getBoundingClientRect().width;
+    ul.style.transform = `translateX(${-1 * slideWidth * currentIndex}px)`;
+  }
 
-  const play = document.getElementById('play');
-  play.addEventListener('click', () => {
-    if (isPlaying === false) {
-      playSlideshow();
-      play.textContent = 'Pause';
-    } else {
-      clearTimeout(timeoutId);
-      play.textContent = 'Play';
+  function setupDots() {
+    for (let i = 0; i < slides.length; i++) {
+      const button = document.createElement('button');
+      button.addEventListener('click', () => {
+        currentIndex = i;
+        updateDots();
+        updateButtons();
+        moveSlides();
+      });
+      dots.push(button);
+      document.querySelector('nav').appendChild(button);
     }
-    isPlaying = !isPlaying;
+
+    dots[0].classList.add('current');
+  }
+
+  function updateDots() {
+    dots.forEach(dot => {
+      dot.classList.remove('current');
+    });
+    dots[currentIndex].classList.add('current');
+  }
+
+  updateButtons();
+  setupDots();
+
+  next.addEventListener('click', () => {
+    currentIndex++;
+    updateButtons();
+    updateDots();
+    moveSlides();
+  });
+
+  prev.addEventListener('click', () => {
+    currentIndex--;
+    updateButtons();
+    updateDots();
+    moveSlides();
+  });
+
+  window.addEventListener('resize', () => {
+    moveSlides();
   });
 }

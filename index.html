@@ -1,40 +1,29 @@
-<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slideshow</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <title>My Carousel</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <main>
-    <img id="main">
-
-    <nav>
+  <section class="carousel">
+    <div class="container">
       <ul>
-        <li id="play">Play</li>
-        <li id="prev">&lt;</li>
-        <li id="next">&gt;</li>
+        <li><img src="img/pic1.png"></li>
+        <li><img src="img/pic2.png"></li>
+        <li><img src="img/pic3.png"></li>
+        <li><img src="img/pic4.png"></li>
       </ul>
+  
+      <button id="prev">&laquo;</button>
+      <button id="next">&raquo;</button>
+    </div>
+  
+    <nav>
     </nav>
+  </section>
 
-    <ul class="thumbnails"></ul>
-  </main>
-   
-  <footer>
-    
-    <a href="https://yukikohiga-sys.github.io/yukikohiga-sys.my-site/"><p> yuki_nyaのトップページに戻る</p></a>
-    
-    <!-- <p> yuki_nyaのトップページに戻る<span class="material-icons home">home</span></p>
-    <a href="https://yukikohiga-sys.github.io/yukikohiga-sys.my-site/" id="home">
-    </a>
-       -->
-</footer>
-
-
-<script src="js/main.js"></script>
-
+  <script src="js/main.js"></script>
 </body>
 </html>
